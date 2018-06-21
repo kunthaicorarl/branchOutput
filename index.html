@@ -1,0 +1,103 @@
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+ <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://jqueryui.com//resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+<form>
+<div class="form-group">
+    <label for="inputAddress">Feature</label>
+    <input type="text" class="form-control" onkeyup="featureEvent()" id='feature' value="feature" placeholder="feature">
+  </div>
+   <div class="form-group col-md-4">
+      <label for="inputState">Dev Version</label>
+      <select id="branchVerion" class="form-control" onchange="branchVerionEvent()">
+        <option selected>1.5.0</option>
+        <option>1.2.0</option>
+      </select>
+    </div>
+ <!-- <div class="form-group">
+    <label for="inputAddress">Branch Name</label>
+    <input type="text" class="form-control" id="branchName" onkeyup="branchNameEvent()" placeholder="name" required=""/>
+  </div>-->
+  <div class="form-group">
+    <label for="inputAddress2">Bug ID</label>
+    <input type="text" class="form-control" id="bugId" onkeyup="bugIdEvent()" placeholder="BugId" required="">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="inputZip">Bug Name</label>
+      <input type="text" class="form-control" onkeyup="bugNameEvent()" id="bugName" required="">
+    </div>
+  </div>
+</form>
+<hr>
+ <div class="form-group">
+    <label for="exampleFormControlTextarea1">Branch Output</label>
+    <textarea class="form-control" id="mainBodyx" class="mainBody" rows="3"></textarea>
+     <button type="submit" class="btn btn-primary" onclick="copy()">Copy</button>
+  </div>
+<script>
+    var feature = document.getElementById('feature').value;
+    var branchName = "";
+    var bugId = "";
+    var date = getDateFullString();
+    var bugName = "";
+    var branchOutPut = "";
+    var branchVerion = "";
+    branchVerionEvent();
+
+    function output() {
+        document.getElementById('mainBodyx').innerHTML = feature + "/" + branchVerion+"-"+ bugId + "-" + date + "-" + bugName; // the input
+    }
+
+    function branchNameEvent() { // the function 
+        branchName = document.getElementById('branchName').value; // the value
+        output();
+    }
+    function bugIdEvent() { // the function 
+        bugId = document.getElementById('bugId').value; // the value
+        output();
+    }
+
+    function branchVerionEvent() { // the function 
+        branchVerion ="dev-"+ document.getElementById('branchVerion').value; // the value
+        output();
+    }
+    function bugIdEvent() { // the function 
+        bugId ="CHR-"+ document.getElementById('bugId').value; // the value
+        output();
+    }
+    function bugNameEvent() { // the function 
+        bugName = document.getElementById('bugName').value; // the value
+        bugName = bugName.split(" ").join("-");
+        output();
+    }
+    function featureEvent() { // the function
+        feature = document.getElementById('feature').value; // the value
+        output();
+    }
+    function copy() {
+        document.getElementById('mainBodyx').select();
+        document.execCommand("copy");  
+    }
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+
+    function getDateFullString() {
+        var d = new Date();
+        var test = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+        return test;
+    }
+
+  </script>
+</body>
+</html>
